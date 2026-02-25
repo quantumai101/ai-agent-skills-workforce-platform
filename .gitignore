@@ -1,0 +1,29 @@
+# Environment
+config/.env
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+
+# MLflow
+mlruns/
+
+# OS
+.DS_Store
+Thumbs.db

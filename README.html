@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Skills Workforce Platform</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg:        #f5f2ec;
+  --surface:   #edeae2;
+  --surface2:  #e5e1d8;
+  --ink:       #1a1814;
+  --muted:     #6b6660;
+  --accent:    #c85a2a;
+  --accent2:   #2a6bc8;
+  --accent3:   #2a8c5a;
+  --border:    #d8d4cc;
+  --code-bg:   #1a1814;
+  --code-text: #e8e4dc;
+  --line:      #ddd9d2;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* ── Layout ── */
+.layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* ── Sidebar ── */
+nav {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 48px 24px 48px 0;
+  border-right: 1px solid var(--border);
+}
+
+.nav-brand {
+  font-family: 'DM Serif Display', serif;
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.nav-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+}
+
+.nav-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 10px;
+  margin: 20px 0 6px;
+}
+
+.nav-links { list-style: none; }
+.nav-links li { margin-bottom: 1px; }
+.nav-links a {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+}
+.nav-links a:hover {
+  color: var(--ink);
+  background: var(--surface);
+  border-left-color: var(--accent);
+}
+
+/* ── Main ── */
+main { padding: 64px 0 80px 64px; max-width: 740px; }
+
+/* ── Hero ── */
+.hero { margin-bottom: 56px; }
+
+.hero img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  display: block;
+  border: 1px solid var(--border);
+}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+
+.hero-desc a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid var(--border); transition: border-color 0.15s; }
+.hero-desc a:hover { border-bottom-color: var(--accent2); }
+
+/* ── Badges ── */
+/* badges handled inline */
+
+/* ── Warning callout ── */
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.callout a { color: var(--accent2); text-decoration: none; }
+.callout a:hover { text-decoration: underline; }
+
+/* ── Quick start CTA ── */
+.cta-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.cta-primary { background: var(--accent); color: #fff; }
+.cta-primary:hover { background: #b34f24; transform: translateY(-1px); }
+.cta-secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--border); }
+.cta-secondary:hover { background: var(--surface2); transform: translateY(-1px); }
+
+/* ── Sections ── */
+.section { margin-bottom: 56px; }
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  background: var(--surface);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+p { margin-bottom: 16px; }
+p:last-child { margin-bottom: 0; }
+
+/* ── Comparison table ── */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin: 20px 0;
+}
+.compare-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  background: var(--surface);
+}
+.compare-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:hover td { background: var(--surface); }
+.compare-table .old { color: var(--muted); }
+.compare-table .new { color: var(--accent3); font-weight: 500; }
+
+/* ── Skills table ── */
+.skills-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 20px 0; }
+.skills-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  background: var(--surface);
+}
+.skills-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.skills-table tr:last-child td { border-bottom: none; }
+.skills-table tr:hover td { background: var(--surface); }
+.skill-em { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--accent); }
+.port-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  color: var(--muted);
+}
+
+/* ── Code blocks ── */
+.code-wrap { position: relative; margin: 20px 0; }
+.code-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  display: inline-block;
+}
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  padding: 20px 24px;
+  border-radius: 0 6px 6px 6px;
+  overflow-x: auto;
+  border: 1px solid #2a2620;
+}
+.code-wrap.no-label pre { border-radius: 6px; }
+
+.copy-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 5px;
+  color: #a8a49c;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.14); color: #e8e4dc; }
+.copy-btn.copied { color: #6af7b8; border-color: rgba(106,247,184,0.3); }
+.copy-icon { width: 12px; height: 12px; }
+
+/* ── Inline code ── */
+code {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  background: var(--surface);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}
+
+/* ── Divider ── */
+hr { border: none; border-top: 1px solid var(--line); margin: 40px 0; }
+
+/* ── Footer ── */
+footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+footer a { color: var(--accent2); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .layout { grid-template-columns: 1fr; }
+  nav { display: none; }
+  main { padding: 32px 24px; }
+  .hero h1 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <nav>
+    <div class="nav-brand">AI Agent Skills<br>Workforce Platform</div>
+    <div class="nav-sub">Claude Agent Skills · Oct 2025</div>
+    <div class="nav-section-label">Overview</div>
+    <ul class="nav-links">
+      <li><a href="#why">Why Agent Skills?</a></li>
+      <li><a href="#skills">The Five Skills</a></li>
+      <li><a href="#quickstart">Quick Start</a></li>
+    </ul>
+    <div class="nav-section-label">Reference</div>
+    <ul class="nav-links">
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#structure">Project Structure</a></li>
+      <li><a href="#docs">Documentation</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Main ── -->
+  <main>
+
+    <!-- Hero -->
+    <div class="hero">
+      <img src="images/header.png" alt="AI Agent Skills Workforce Platform">
+
+      <div class="eyebrow">Claude Agent Skills · Anthropic Oct 2025 · Azure / AKS · Databricks</div>
+      <h1>AI Agent Skills<br>Workforce Platform</h1>
+
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;align-items:center">
+        <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/Python-3.11+-blue.svg" alt="Python" height="20"></a>
+        <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-0.110+-green.svg" alt="FastAPI" height="20"></a>
+        <a href="https://azure.microsoft.com/"><img src="https://img.shields.io/badge/Azure-AKS%20%7C%20ACR%20%7C%20APIM-blue.svg" alt="Azure" height="20"></a>
+        <a href="https://databricks.com/"><img src="https://img.shields.io/badge/Databricks-MLflow%20%7C%20Delta%20Lake-red.svg" alt="Databricks" height="20"></a>
+        <a href="https://www.anthropic.com/engineering/equipping-claude-with-agent-skills"><img src="https://img.shields.io/badge/Claude-Agent%20Skills%20%7C%20Oct%202025-blueviolet.svg" alt="Claude Agent Skills" height="20"></a>
+        <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" height="20"></a>
+        <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" height="20"></a>
+      </div>
+
+      <p class="hero-desc">
+        5 autonomous Claude Agent Skills for production ML operations on Azure / AKS and Databricks.
+        Built on <a href="https://www.anthropic.com/engineering/equipping-claude-with-agent-skills" target="_blank">Anthropic's Claude Agent Skills architecture</a> (Oct 2025) —
+        composable, progressive-disclosure skills that replace monolithic agents.
+        Targeted at senior AI engineering roles at ASX200 enterprise companies.
+      </p>
+
+      <div class="callout">
+        This uses Claude Agent Skills specifically (Anthropic, Oct 2025) — not generic "AI has skills".
+        See the <a href="https://www.anthropic.com/engineering/equipping-claude-with-agent-skills" target="_blank">Anthropic Engineering Blog</a> for the open standard.
+      </div>
+
+      <div class="cta-bar">
+        <a class="cta-btn cta-primary" href="#quickstart">▶ Quick Start</a>
+        <a class="cta-btn cta-secondary" href="docs/README.html" target="_blank">📄 Full Docs</a>
+        <a class="cta-btn cta-secondary" href="https://github.com/quantumai101/ai-agent-skills-workforce-platform" target="_blank">⭐ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Why Agent Skills -->
+    <div class="section" id="why">
+      <h2 class="section-title"><span class="num">01</span> Why Claude Agent Skills, Not Agents?</h2>
+      <p>
+        "Instead of building fragmented, custom-designed agents for each use case, anyone can now
+        specialise their agents with composable capabilities." — Anthropic Engineering Blog, Oct 2025
+      </p>
+      <table class="compare-table">
+        <thead>
+          <tr><th>Old Pattern</th><th>This Platform</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="old">Monolithic agent per task</td><td class="new">Composable SKILL.md per domain</td></tr>
+          <tr><td class="old">Full context loaded always</td><td class="new">Progressive disclosure — loads only what's needed</td></tr>
+          <tr><td class="old">Hard to share or reuse</td><td class="new">Each skill is a portable directory</td></tr>
+          <tr><td class="old">One LLM does everything</td><td class="new">Skills route to the right model / subagent</td></tr>
+        </tbody>
+      </table>
+      <p>Each of the five platform capabilities is implemented as a Claude Agent Skill under <code>skills/</code> — a <code>SKILL.md</code> plus supporting workflows and scripts — wired to a FastAPI microservice on Azure AKS.</p>
+    </div>
+
+    <!-- The Five Skills -->
+    <div class="section" id="skills">
+      <h2 class="section-title"><span class="num">02</span> The Five Claude Agent Skills</h2>
+      <table class="skills-table">
+        <thead>
+          <tr><th>Skill</th><th>Role</th><th>Port</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="skill-em">🛰️ Nova</span><br><code style="font-size:11px">skills/nova</code></td>
+            <td>Infrastructure — AKS, ACR, APIM, Azure Monitor</td>
+            <td><span class="port-tag">:8001</span></td>
+          </tr>
+          <tr>
+            <td><span class="skill-em">⚡ Axiom</span><br><code style="font-size:11px">skills/axiom</code></td>
+            <td>Data Pipelines — Delta Lake, MLflow, Azure Blob</td>
+            <td><span class="port-tag">:8002</span></td>
+          </tr>
+          <tr>
+            <td><span class="skill-em">🛡️ Sentinel</span><br><code style="font-size:11px">skills/sentinel</code></td>
+            <td>Testing & Red Team — pytest, Playwright, Azure DevOps</td>
+            <td><span class="port-tag">:8003</span></td>
+          </tr>
+          <tr>
+            <td><span class="skill-em">📖 Nexus</span><br><code style="font-size:11px">skills/nexus</code></td>
+            <td>Documentation — OpenAPI, Runbooks, Confluence</td>
+            <td><span class="port-tag">:8004</span></td>
+          </tr>
+          <tr>
+            <td><span class="skill-em">⚙️ Prometheus</span><br><code style="font-size:11px">skills/prometheus</code></td>
+            <td>Optimisation — A/B Testing, Auto-scaling, FinOps</td>
+            <td><span class="port-tag">:8005</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Quick Start -->
+    <div class="section" id="quickstart">
+      <h2 class="section-title"><span class="num">03</span> Quick Start</h2>
+      <div class="code-wrap">
+        <div class="code-label">bash — Mac / Linux</div>
+        <pre>git clone https://github.com/quantumai101/ai-agent-skills-workforce-platform.git
+cd ai-agent-skills-workforce-platform
+cp config/.env.example config/.env   # fill in Azure + Anthropic keys
+pip install -r requirements.txt
+bash deployment/deploy.sh</pre>
+        <button class="copy-btn" onclick="copyCode(this)">
+          <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy
+        </button>
+      </div>
+      <div class="code-wrap">
+        <div class="code-label">Windows — double-click</div>
+        <pre>deployment\START_UI.bat</pre>
+        <button class="copy-btn" onclick="copyCode(this)">
+          <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy
+        </button>
+      </div>
+      <p>Browser opens at <code>docs/index.html</code> — live health status for all five skills updates every 10 seconds.</p>
+    </div>
+
+    <!-- Architecture -->
+    <div class="section" id="architecture">
+      <h2 class="section-title"><span class="num">04</span> Claude Agent Skill Architecture</h2>
+      <p>Each skill follows the <a href="https://www.anthropic.com/engineering/equipping-claude-with-agent-skills" target="_blank">Anthropic Claude Agent Skills open standard</a>. Claude discovers each skill by reading its <code>SKILL.md</code> description at startup and loads the full skill body only when the task matches — progressive disclosure.</p>
+      <div class="code-wrap no-label">
+        <pre>skills/nova/
+├── SKILL.md              # YAML frontmatter (name, description) + instructions
+├── workflows/
+│   ├── Deploy.md         # Deploy a new AI service to AKS
+│   ├── Scale.md          # Scale node pools / HPA
+│   └── Monitor.md        # SLI/SLO watchdog
+├── scripts/
+│   └── nova_service.py   # FastAPI microservice (Azure SDK, 168 azure_ refs)
+└── resources/
+    └── k8s_templates/    # Kubernetes manifest templates</pre>
+      </div>
+    </div>
+
+    <!-- Project Structure -->
+    <div class="section" id="structure">
+      <h2 class="section-title"><span class="num">05</span> Project Structure</h2>
+      <div class="code-wrap no-label">
+        <pre>ai-agent-skills-workforce-platform/
+├── skills/              # Five Claude Agent Skills
+│   ├── nova/            # Infrastructure — Azure AKS/ACR/APIM (168 azure_ refs)
+│   ├── axiom/           # Data pipelines — Databricks / Delta Lake
+│   ├── sentinel/        # Testing — pytest / Playwright / Red Team
+│   ├── nexus/           # Documentation — OpenAPI / Runbooks
+│   └── prometheus/      # Optimisation — A/B / FinOps / Auto-scaling
+├── orchestration/       # Central coordinator — routes tasks to skills :8000
+├── monitoring/          # Prometheus metrics, Azure Monitor alerts
+├── deployment/          # deploy.sh · START_UI.bat · launch_ui.py
+├── docs/                # index.html dashboard · README.html · README.md
+├── tests/               # Unit, integration, red-team suites
+├── config/              # .env.example — all Azure + Databricks variables
+└── requirements.txt     # All Python dependencies</pre>
+      </div>
+    </div>
+
+    <!-- Docs -->
+    <div class="section" id="docs">
+      <h2 class="section-title"><span class="num">06</span> Full Documentation</h2>
+      <p>
+        See <a href="docs/README.md">docs/README.md</a> for the complete GitHub-rendered guide,
+        or open <a href="docs/README.html" target="_blank">docs/README.html</a> for the polished web version with copy buttons and sidebar navigation.
+        Live dashboard at <a href="docs/index.html" target="_blank">docs/index.html</a> shows real-time health for all five skills.
+      </p>
+    </div>
+
+    <footer>
+      <span>MIT License · quantumai101</span>
+      <div style="display:flex;gap:20px">
+        <a href="https://www.anthropic.com/engineering/equipping-claude-with-agent-skills" target="_blank">Claude Agent Skills</a>
+        <a href="CONTRIBUTING.md">Contributing</a>
+        <a href="https://github.com/quantumai101/ai-agent-skills-workforce-platform" target="_blank">GitHub</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.closest('.code-wrap').querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>Copied!`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy`;
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
