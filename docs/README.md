@@ -45,5 +45,14 @@ bashcurl -X POST http://localhost:8000/task \
   -d '{"task": "deploy axiom data pipeline service to AKS"}'
 Nova reads its workflows/Deploy.md, executes the 11-step Azure deployment, and returns the live endpoint.
 
+---
+
+## 📄 Documentation
+
+View the full styled documentation site:
+**[https://quantumai101.github.io/ai-agent-skills-workforce-platform/docs/README.md.html](https://quantumai101.github.io/ai-agent-skills-workforce-platform/docs/README.md.html)**
+
 GitHub: quantumai101/ai-agent-skills-workforce-platform
+
+
 
