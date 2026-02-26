@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Skills Workforce Platform — Docs</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+    :root {
+      --bg:        #f5f2ec;
+      --surface:   #edeae2;
+      --border:    #d6d0c4;
+      --text:      #1a1814;
+      --muted:     #6b6456;
+      --accent:    #2a5298;
+      --accent2:   #c8813a;
+      --code-bg:   #1e1c18;
+      --code-text: #e8e4da;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── Sidebar ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 220px;
+      height: 100vh;
+      padding: 2.5rem 1.5rem;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      overflow-y: auto;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      line-height: 1.3;
+      color: var(--text);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    nav a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 0.3rem 0;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.01em;
+      transition: color 0.15s;
+    }
+    nav a:hover { color: var(--accent2); }
+
+    /* ── Main content ── */
+    main {
+      margin-left: 220px;
+      padding: 4rem 5rem;
+      max-width: 960px;
+      width: 100%;
+    }
+
+    /* Section headings */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    section { margin-bottom: 4rem; }
+
+    p { margin-bottom: 1rem; color: var(--text); }
+
+    /* Header image */
+    .header-img-wrap {
+      margin: -4rem -5rem 3rem -5rem;
+    }
+    .header-img {
+      width: 100%;
+      display: block;
+      max-height: 480px;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* Hero */
+    .hero {
+      margin-bottom: 4rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.6rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .hero .subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent2);
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.03em;
+    }
+    .hero p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    /* Architecture diagram box */
+    .arch-box {
+      background: var(--code-bg);
+      color: var(--code-text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.9;
+      padding: 2rem 2.5rem;
+      border-radius: 6px;
+      margin: 1.5rem 0 1rem;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .arch-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 0.75rem;
+    }
+
+    /* Skill Standard tree */
+    .tree-box {
+      background: var(--code-bg);
+      color: var(--code-text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.9;
+      padding: 1.5rem 2rem;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* Skill reference table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1.25rem;
+    }
+    th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 2px solid var(--border);
+      background: var(--surface);
+    }
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--surface); }
+    .port-badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+    }
+    .skill-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Code blocks */
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      padding: 1.25rem 1.75rem;
+      border-radius: 6px;
+      margin: 1.25rem 0;
+      overflow-x: auto;
+    }
+    .code-block .lang-tag {
+      font-size: 0.68rem;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Inline note */
+    .note {
+      background: var(--surface);
+      border-left: 3px solid var(--accent2);
+      padding: 0.75rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { color: var(--accent2); }
+
+    @media (max-width: 800px) {
+      nav { display: none; }
+      main { margin-left: 0; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav>
+  <div class="nav-logo">AI Agent Skills<br>Workforce Platform</div>
+  <a href="#architecture">Architecture</a>
+  <a href="#skill-standard">Skill Standard</a>
+  <a href="#skill-reference">Skill Reference</a>
+  <a href="#environment">Environment Setup</a>
+  <a href="#running">Running Locally</a>
+  <a href="#deploy">Deploy to AKS</a>
+</nav>
+
+<!-- Main -->
+<main>
+
+  <!-- Header Image -->
+  <div class="header-img-wrap">
+    <img src="../images/header.png" alt="AI Agent Skills Workforce Platform" class="header-img">
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="subtitle">Claude Agent Skills · Anthropic, Oct 2025</div>
+    <h1>AI Agent Skills<br>Workforce Platform</h1>
+    <p>Composable, progressive-disclosure skill directories that replace monolithic agents. This is not a generic "AI has skills" project. See the Anthropic Engineering Blog for the open standard.</p>
+  </div>
+
+  <!-- 01 Architecture -->
+  <section id="architecture">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Architecture Overview</h2>
+    </div>
+
+    <div class="arch-box">User request → Orchestrator :8000 (coordinator.py)
+        │
+        ▼
+Claude reads SKILL.md descriptions only
+(progressive disclosure — lightweight routing)
+        │
+┌───────┼──────────┬──────────┬──────────┐
+▼       ▼          ▼          ▼          ▼
+Nova    Axiom   Sentinel    Nexus   Prometheus
+(AKS/  (Data-   (Tests)    (Docs)   (FinOps)
+ ACR)  bricks)
+:8001  :8002     :8003      :8004     :8005</div>
+
+    <p>Claude loads the full skill body only when routed to that skill — keeping context windows lean and costs low. This is the core advantage of Claude Agent Skills over monolithic agents.</p>
+  </section>
+
+  <!-- 02 Skill Standard -->
+  <section id="skill-standard">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Claude Agent Skill Standard</h2>
+    </div>
+
+    <p>Each skill follows the Anthropic open standard:</p>
+
+    <div class="tree-box">skills/
+├── SKILL.md        ← YAML frontmatter: name + description (always loaded)
+├── workflows/      ← Sub-task instructions (loaded on demand)
+├── scripts/        ← FastAPI microservice code
+└── resources/      ← Templates, configs, static assets</div>
+
+    <p>Each <code style="font-family:'DM Mono',monospace;font-size:0.88em;background:var(--surface);padding:0.1em 0.3em;border-radius:3px;">SKILL.md</code> starts with a YAML frontmatter block containing <strong>name</strong> and <strong>description</strong>. The description is what Claude reads at routing time — be specific, because this determines whether the skill gets selected. The full skill instructions follow below the frontmatter.</p>
+  </section>
+
+  <!-- 03 Skill Reference -->
+  <section id="skill-reference">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>Skill Reference</h2>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th>Port</th>
+          <th>Azure Services</th>
+          <th>Databricks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="skill-name">Nova</span></td>
+          <td><span class="port-badge">8001</span></td>
+          <td>AKS, ACR, APIM, Monitor, Key Vault, Blob, Service Bus</td>
+          <td>MLflow tracking</td>
+        </tr>
+        <tr>
+          <td><span class="skill-name">Axiom</span></td>
+          <td><span class="port-badge">8002</span></td>
+          <td>Blob Storage, Service Bus</td>
+          <td>Delta Lake, MLflow, Spark</td>
+        </tr>
+        <tr>
+          <td><span class="skill-name">Sentinel</span></td>
+          <td><span class="port-badge">8003</span></td>
+          <td>Azure DevOps, Blob, Monitor</td>
+          <td>MLflow artefacts</td>
+        </tr>
+        <tr>
+          <td><span class="skill-name">Nexus</span></td>
+          <td><span class="port-badge">8004</span></td>
+          <td>APIM Developer Portal, Blob</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><span class="skill-name">Prometheus</span></td>
+          <td><span class="port-badge">8005</span></td>
+          <td>Monitor, App Config, Blob</td>
+          <td>MLflow experiments</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 04 Environment Setup -->
+  <section id="environment">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>Environment Setup</h2>
+    </div>
+
+    <p>Copy the example env file and fill in your Azure and Anthropic credentials:</p>
+
+    <div class="code-block">
+      <span class="lang-tag">bash</span>cp config/.env.example config/.env</div>
+
+    <div class="note">See <code style="font-family:'DM Mono',monospace;">config/.env.example</code> for the full annotated list of required variables.</div>
+  </section>
+
+  <!-- 05 Running Locally -->
+  <section id="running">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2>Running Locally</h2>
+    </div>
+
+    <div class="code-block">
+      <span class="lang-tag">bash</span>pip install -r requirements.txt
+python deployment/launch_ui.py</div>
+
+    <p>All 5 skills and the orchestrator start automatically. On Windows, double-click <code style="font-family:'DM Mono',monospace;font-size:0.88em;background:var(--surface);padding:0.1em 0.3em;border-radius:3px;">deployment/START_UI.bat</code> instead. The browser opens at <code style="font-family:'DM Mono',monospace;font-size:0.88em;background:var(--surface);padding:0.1em 0.3em;border-radius:3px;">docs/index.html</code> showing live health status for all services.</p>
+  </section>
+
+  <!-- 06 Deploy to AKS -->
+  <section id="deploy">
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <h2>Deploying to Azure AKS</h2>
+    </div>
+
+    <p>Use the Nova skill itself to deploy the other skills — dogfooding the platform:</p>
+
+    <div class="code-block">
+      <span class="lang-tag">bash</span>curl -X POST http://localhost:8000/task \
+  -H "Content-Type: application/json" \
+  -d '{"task": "deploy axiom data pipeline service to AKS"}'</div>
+
+    <p>Nova reads its <code style="font-family:'DM Mono',monospace;font-size:0.88em;background:var(--surface);padding:0.1em 0.3em;border-radius:3px;">workflows/Deploy.md</code>, executes the 11-step Azure deployment, and returns the live endpoint.</p>
+  </section>
+
+  <footer>
+    <a href="https://github.com/quantumai101/ai-agent-skills-workforce-platform" target="_blank">github.com/quantumai101/ai-agent-skills-workforce-platform</a>
+  </footer>
+
+</main>
+</body>
+</html>
